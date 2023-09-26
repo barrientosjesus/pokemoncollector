@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if object %}
+<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+{% else %}
+<h1>Add Trainer</h1>
+{% endif %}
+<form action="" method="POST">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Submit!" class="btn">
+</form>
+<script>
+  const tdElement = document.getElementById('id_is_gym_leader').parentElement;
+  const pElement = document.createElement("p");
+  const labelElement = document.createElement("label");
+  const spanElement = document.createElement("span");
+  spanElement.textContent = "Gym Leader?";
+  labelElement.appendChild(tdElement.querySelector("input"));
+  labelElement.appendChild(spanElement);
+  pElement.appendChild(labelElement);
+  tdElement.innerHTML = '';
+  tdElement.appendChild(pElement);
+</script>
+{% endblock %}

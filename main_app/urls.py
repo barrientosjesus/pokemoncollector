@@ -4,9 +4,10 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('pokemon/', views.pokemon_index, name='index'),
-    path('pokemon/<int:pokemon_id>/', views.pokemon_details, name='details'),
-    path('pokemon/create/', views.PokemonCreate.as_view(), name='pokemon_create'),
-    path('pokemon/<int:pk>/update/', views.PokemonUpdate.as_view(), name='pokemon_update'),
-    path('pokemon/<int:pk>/delete/', views.PokemonDelete.as_view(), name='pokemon_delete'),
+    path('trainer/', views.trainer_index, name='index'),
+    path('trainer/<int:trainer_id>/', views.trainer_details, name='details'),
+    path('trainer/create/', views.TrainerCreate.as_view(), name='trainer_create'),
+    path('trainer/<int:pk>/update/', views.TrainerUpdate.as_view(), name='trainer_update'),
+    path('trainer/<int:pk>/delete/', views.TrainerDelete.as_view(), name='trainer_delete'),
+    path('trainer/<int:trainer_id>/add_pokemon/', views.add_pokemon, name='add_pokemon'),
 ]

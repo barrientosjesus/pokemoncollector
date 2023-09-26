@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Trainer List</h1>
+
+{% for t in trainer %}
+<div class="card">
+  <a href="{% url 'details' t.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ t.name }} | {% if t.is_gym_leader %}Gym Leader{% else %}Trainer{% endif %}</span>
+      <ul>
+        <li>Badges Won: {{ t.badges }}</li>
+      </ul>
+    </div>
+  </a>
+</div>
+{% endfor %}
+
+{% endblock %}

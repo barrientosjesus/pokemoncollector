@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Pokemon
+from .models import Trainer
+from .forms import PokemonForm
 
 # Create your views here.
 def home(request):
@@ -9,26 +10,37 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-def pokemon_index(request):
-    pokemon = Pokemon.objects.all()
-    return render(request, 'pokemon/index.html', {
-        'pokemon': pokemon,
+def trainer_index(request):
+    trainer = Trainer.objects.all()
+    return render(request, 'trainer/index.html', {
+        'trainer': trainer,
     })
 
-def pokemon_details(request, pokemon_id):
-    pokemon = Pokemon.objects.get(id=pokemon_id)
-    return render(request, 'pokemon/details.html', {
-        'pokemon': pokemon
+def trainer_details(request, trainer_id):
+    trainer = Trainer.objects.get(id=trainer_id)
+    pokemon_form = PokemonForm()
+    return render(request, 'trainer/details.html', {
+        'trainer': trainer,
+        'pokemon_form': pokemon_form
     })
 
-class PokemonCreate(CreateView):
-    model = Pokemon
+def add_pokemon(request, trainer_id):
+    form = PokemonForm(request.POST)
+    print(form.is_valid());
+    if form.is_valid():
+        new_pokemon = form.save(commit=False)
+        new_pokemon.trainer_id = trainer_id
+        new_pokemon.save()
+    return redirect('details', trainer_id=trainer_id)
+
+class TrainerCreate(CreateView):
+    model = Trainer
     fields = '__all__'
 
-class PokemonUpdate(UpdateView):
-    model = Pokemon
+class TrainerUpdate(UpdateView):
+    model = Trainer
     fields = '__all__'
 
-class PokemonDelete(DeleteView):
-    model = Pokemon
-    success_url = '/pokemon'
+class TrainerDelete(DeleteView):
+    model = Trainer
+    success_url = '/trainer'
