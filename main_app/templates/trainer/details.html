@@ -36,7 +36,7 @@
                 {% for pokemon in trainer.pokemon_set.all %}
                 <tr>
                     <td>{{pokemon.pokedex_number}}</td>
-                    <td>{{pokemon.name}}</td>
+                    <td><a href="https://bulbapedia.bulbagarden.net/wiki/{{pokemon.name}}_(Pok%C3%A9mon)" target="_blank">{{pokemon.name}}</a></td>
                     <td>{{pokemon.nickname}}</td>
                     <td>{{pokemon.type}}</td>
                 </tr>
